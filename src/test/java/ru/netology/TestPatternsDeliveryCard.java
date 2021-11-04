@@ -34,11 +34,13 @@ public class TestPatternsDeliveryCard {
         $("[type=tel][name=phone]").setValue(regCardInfo.getPhone().toString());
         $("[data-test-id=agreement]").click();
         $$("[class=button__text]").find(exactText("Запланировать")).click();
+        $("[data-test-id=success-notification] [class=notification__content][class=notification__content]").shouldBe(exactText("Встреча успешно запланирована на " + generateDate(3)), visible);
         $("[placeholder='Дата встречи']").doubleClick().sendKeys(Keys.BACK_SPACE);
         $("[placeholder='Дата встречи']").setValue(generateDate(5));
         $$("[class=button__text]").find(exactText("Запланировать")).click();
+        $("[data-test-id=replan-notification] [class=notification__content]").shouldBe(exactText("У вас уже запланирована встреча на другую дату. Перепланировать?"), visible);
         $$("[class=button__text]").find(exactText("Перепланировать")).click();
-        $(withText("Встреча успешно запланирована на")).find(String.valueOf(exactText("Встреча успешно запланирована на " + generateDate(5))));
+        $("[data-test-id=success-notification] [class=notification__content]").shouldBe(exactText("Встреча успешно запланирована на " + generateDate(5)), visible);
     }
 
     @Test
