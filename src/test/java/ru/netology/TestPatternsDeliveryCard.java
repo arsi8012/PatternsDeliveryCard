@@ -6,8 +6,7 @@ import org.openqa.selenium.Keys;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.exactText;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
 import static ru.netology.DataGenerator.Registration.generateDate;
@@ -38,7 +37,7 @@ public class TestPatternsDeliveryCard {
         $("[placeholder='Дата встречи']").doubleClick().sendKeys(Keys.BACK_SPACE);
         $("[placeholder='Дата встречи']").setValue(generateDate(5));
         $$("[class=button__text]").find(exactText("Запланировать")).click();
-        $("[data-test-id=replan-notification] [class=notification__content]").shouldBe(exactText("У вас уже запланирована встреча на другую дату. Перепланировать?"), visible);
+        $("[data-test-id=replan-notification] [class=notification__title]").shouldBe(exactText("Необходимо подтверждение"));
         $$("[class=button__text]").find(exactText("Перепланировать")).click();
         $("[data-test-id=success-notification] [class=notification__content]").shouldBe(exactText("Встреча успешно запланирована на " + generateDate(5)), visible);
     }
